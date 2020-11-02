@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Salartis - Discord Bot</title>
+    <%- include("./blocks/header.ejs") %>
+  </head>
+
+  <body>
+    <%- include("./blocks/navbar.ejs", { bot, user }) %>
+  <div class="wrapper vcenter-item">
+  <div id="home">
+    <p class="text-center talign"><img src="https://cdn.discordapp.com/attachments/700825294466056324/766744626051940352/file.png" class="cooolimg" style="width: 128px; height: 128px;">
+      <br /><span style="margin-top:10px; margin-bottom:10px;">A simple dashboard bot</span><br />
+    <a href="/add" type="button" class="btn btn-primary">Add</a></p>
+  </div>
+</div>
+  </body>
+  <style>
+    .wrapper {
+    min-height: 100vh;
+}
+  .vcenter-item {
+    display: flex;
+    align-items: center;
+   }
+    #home {
+      width:100%;
+    }
+    .cooolimg {
+        animation: hover 4s ease-in-out infinite;
+    }
+    @keyframes hover {
+        0%{
+            transform: translateY(0px)
+        }
+        50%{
+            transform: translateY(-10px)
+        }
+        100%{
+            transform: translateY(0px)
+        }
+    }
+  
+    .talign{
+     margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%; 
+       transform: translate(-50%, -50%);
+      color: white;
+}
+     .balign{
+     margin: 0;
+    position: absolute;
+    top: 65%;
+    left: 50%; 
+       transform: translate(-50%, -50%);
+}
+   
+   
+  
+
+</style>
+</html>

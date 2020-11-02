@@ -1,0 +1,10 @@
+token: "NzUwNTEwMDU0MTI5NTMyOTI4.X07k9A.7GAkuNxux6FTTDOnoMW0X-ZbStc" # bot token
+port: 3000 # port 
+prefix: "idk!" # default prefix
+bot:
+    id: "750510054129532928" # bot id
+    secret: "f7XrZ7muBLC7ZFmMChG3ZpeqMDQ1dopO" # bot secret 
+    redirect: "https://dashh.glitch.me/auth/callback" # bot redirect ending in /auth/callback
+    scopes:
+        - identify
+        - guilds
