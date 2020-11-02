@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Salartis - <%= guild.name %></title>
+    <%- include("./blocks/header.ejs") %>
+  </head>
+
+  <body>
+    <%- include("./blocks/sidebar.ejs", { guild }) %>
+    <%- include("./blocks/navbar.ejs", { bot, user }) %>
+<div id="content">
+    <div class="container" style="padding-top:77px;">
+      <div class="row" style="display: flex; justify-content: center;">
+        <div class="card bg-transparent col-lg-8 text-light" style="border: none;">
+          <!-- Gay -->
+          <header style="z-index:1;  background-color: #343b41; border: 1px solid #23282c;" class="card-header bg-dark text-light text-center">
+            <div><i class="fas fa-check"></i> Tags</div>
+          </header>
+          <div class="card-body" style="background-color: #3a4149; border: 1px solid #23282c; overflow:hidden;">
+            <button data-toggle="modal" data-target="#createTag" class="btn btn-success"><i class="fas fa-plus"></i> Create tag </button>
+
+            <hr>
+            <% if(!customc.length || !customc){ %>
+            <p>
+              No custom commands found
+            </p>
+            <% }else if(customc){ %>
+
+
+            <table style="border-color:#343A40;" class="table bg-dark text-light">
+              <thead>
+                <tr>
+                  <th style="border-color:#343A40;" class="bg-dark text-light" scope="col">#</th>
+                  <th style="border-color:#343A40;" class="bg-dark text-light" scope="col">Name</th>
+                  <th style="border-color:#343A40;" class="bg-dark text-light" scope="col">Content</th>
+                  <th style="border-color:#343A40;" class="bg-dark text-light" scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i = 0; i < customc.length; i++){ %>
+                <% let data = customc[i].data %>
+                <% let goodData = JSON.parse(data) %>
+                <tr>
+
+                  <th style="border-color:#343A40;" scope="row"><%= customc.indexOf(customc[i]) + 1 %></th>
+                  <td style="border-color:#343A40;"><%= goodData.name %></td>
+                  <% if(goodData.content.length > 30){ %>
+                  <td style="border-color:#343A40; max-width:12px;" class="content"><%= goodData.content.substring(0, goodData.content.length - 30)+ "..." %></td>
+<% }else{ %>
+ <td style="border-color:#343A40;" class="content"><%= goodData.content %></td>
+<% } %>
+                  <td style="border-color:#343A40;">
+                    <div class="btn-group btn-block">
+                        <button data-content="<%= goodData.content %>"  data-mentions="<%= goodData.mentions || 0 %>" data-args="<%= goodData.args || 0 %>" data-name="<%= goodData.name %>" data-toggle="modal" data-target="#editTag" class="btn btn-info btn-sm">Edit</button>
+                        <form action="/dash/<%= guild.id %>/manage/tags/<%= goodData.name %>/delete" method="POST"><button type="submit" class="btn btn-danger btn-sm">Delete</button></div></form>
+                  </td>
+
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+
+            <% } %>
+            <div class="modal fade" id="editTag" tabindex="-1" role="dialog" aria-labelledby="editTag" aria-hidden="true">
+              <form action="/dash/<%= guild.id %>/manage/tags" method="POST">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content bg-dark text-light">
+                    <div class="modal-header bg-dark text-light">
+                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-tag"></i> Edit tag</h5>
+                      <button type="button" class="close bg-dark text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body bg-dark text-light">
+                      <label for="tag-name1">Tag name</label>
+                      <input id="tag-name1" maxlength="2000" style="border-color: #000;" name="tagname" value="name" onkeyup="check(`tag-name1`, `create1`, `tag-content1`)" class="form-control bg-dark text-light" readonly>
+                      <hr>
+                      <label for="tag-content1">Tag content</label>
+                      <textarea id="tag-content1" style="border-color: #000;" maxlength="2000" name="tagcontent" onkeyup="check(`tag-name1`, `create1`, `tag-content1`)" class="form-control bg-dark text-light"></textarea>
+                   <button type="button" onclick="showstoof2()" class="collapsible btn bg-dark text-light">Variable Refrence</button>
+                    <button type="button" onclick="showop2()" class="collapsible btn bg-dark text-light">Command options</button>
+                    <div id="cont6" class="content" style="display: none;">
+              <br>
+      
+<!-- Rounded switch -->
+<p>Delete the message from which the command was ran</p>
+<label class="switch">
+
+  <input type="checkbox" name="delete" value="idk">
+  <span class="slider round"></span>
+</label>
+<p>NSFW command</p>
+<label class="switch">
+
+  <input type="checkbox" name="nsfw" value="idk">
+  <span class="slider round"></span>
+</label>
+<p>Required args</p>
+<input  class="form-control bg-dark text-light input22" style="border-color: #000;" name="args" type="number" placeholder="1" id="idk1" onkeyup="test1()">
+<p id="p1" style="display: none;">Note having 10 as the required arguments doesnt mean you get 10 args it means you can use all args joined together for like a say command or 8ball command</p>
+<p>Mentions</p>
+<input   class="form-control bg-dark text-light reeee" style="border-color: #000;" name="mention" type="number" placeholder="1" id="idk+-" onkeyup="testu()">
+
+            </div>
+                      <div id="cont1" class="content" style="display: none;">
+              <br>
+              <p>Variables:</p>
+              <ul>
+                <li><code>//prefix</code> - Output command prefix for server.</li>
+                <li><code>//mention{number}</code> - Replaces it with the mention in that message if that message has mentions that was given in command options.</li>
+                    <li><code>//args{number}</code> - Replaces it with the args in that message if that message has args that was given in command options.</li>
+                 <li><code>//args{join}</code> - If you set the required args to 10 this will show everything joined best used for a say command</li>
+                 <li><code>{choice choice1; choice2 }</code> - Gets the random thing from the provided choice and replaces  {choice} in the message with the random choice</li>
+              </ul>
+              <p>Variables for user:</p>
+              <ul>
+                <li><code>//user.id</code> - User's id</li>
+                <li><code>//user.name</code> - User's username</li>
+                <li><code>//user.nick</code> - User's nick</li>
+                <li><code>//user.tag</code>  User's discriminator</li>
+       
+                <li><code>//user</code> - Mentions the user</li>
+              </ul>
+              <p>Variables for server:</p>
+              <ul>
+                <li><code>//server.id</code> - Server's id</li>
+                <li><code>//server.name</code> - Server's name</li>
+             
+           
+              </ul>
+            </div>
+      </div>
+ 
+      <div class="modal-footer bg-dark text-light">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="create1" class="btn btn-success" >Save</button>
+         </div>
+            </div>
+            </div>
+            </div>
+
+    </form>
+  </div>
+ 
+       <div class="modal fade" id="createTag" tabindex="-1" role="dialog" aria-labelledby="createTag" aria-hidden="true">
+    <form action="/dash/<%= guild.id %>/manage/tags" method="POST">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header bg-dark text-light">
+            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-tag"></i> Create tag</h5>
+            <button type="button" class="close bg-dark text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-dark text-light">
+            <label for="tag-name">Tag name</label>
+            <input id="tag-name" name="tagname" style="border-color: #000;" maxlength="2000" onkeyup="check(`tag-name`, `create`, `tag-content`)" class="form-control bg-dark text-light">
+            <hr>
+            <label for="tag-content">Tag content</label>
+            <textarea id="tag-content" name="tagcontent" style="border-color: #000;"  maxlength="2000" onkeyup="check(`tag-name`, `create`, `tag-content`)" class="form-control bg-dark text-light"></textarea>
+  <hr> 
+                      <button type="button" onclick="showstoof()" class="collapsible btn bg-dark text-light">Variable Refrence</button>
+                          <button type="button" onclick="showop()" class="collapsible btn bg-dark text-light">Command options</button>
+                      <div id="cont" class="content" style="display: none;">
+              <br>
+              <p>Variables:</p>
+              <ul>
+                <li><code>//prefix</code> - Output command prefix for server.</li>
+                     <li><code>//args{number}</code> - Replaces it with the args in that message if that message has args that was given in command options.</li>
+                       <li><code>//mention{number}</code> - Replaces it with the mention in that message if that message has mentions that was given in command options.</li>
+                       <li><code>//args{join}</code> - If you set the required args to 10 this will show everything joined best used for a say command</li>
+                       <li><code>{choice choice1; choice2 }</code> - Gets the random thing from the provided choice and replaces  {choice} in the message with the random choice</li>
+              </ul>
+              <p>Variables for user:</p>
+              <ul>
+                <li><code>//user.id</code> - User's id</li>
+                <li><code>//user.name</code> - User's username</li>
+                <li><code>//user.nick</code> - User's nick</li>
+                <li><code>//user.tag</code>  User's discriminator</li>
+             
+                <li><code>//user</code> - Mentions the user</li>
+              </ul>
+              <p>Variables for server:</p>
+              <ul>
+                <li><code>//server.id</code> - Server's id</li>
+                <li><code>//server.name</code> - Server's name</li>
+            
+           
+              </ul>
+            </div>
+             <div id="cont5" class="content" style="display: none;">
+              <br>
+      
+<!-- Rounded switch -->
+<p>Delete the message from which the command was ran</p>
+<label class="switch">
+
+  <input type="checkbox" name="delete" value="idk">
+  <span class="slider round"></span>
+</label>
+<p>NSFW command</p>
+<label class="switch">
+
+  <input type="checkbox" name="nsfw" value="idk">
+  <span class="slider round"></span>
+</label>
+<p>Required args</p>
+<input   class="form-control bg-dark text-light" style="border-color: #000;" name="args" type="number" placeholder="1" id="idk" onkeyup="test()">
+<p id="p2" style="display: none;">Note having 10 as the required arguments doesnt mean you get 10 args it means you can use all args joined together for like a say command or 8ball command</p>
+<p>Mentions</p>
+<input   class="form-control bg-dark text-light" style="border-color: #000;" name="mention" type="number" placeholder="1" id="idk-" onkeyup="test6()">
+
+
+            </div>
+            <div class="modal-footer bg-dark text-light">
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" id="create" class="btn btn-success" disabled>Create</button>
+            </div>
+            </div>
+            </div>
+            </div>
+
+    </form>
+  </div>
+
+  </div>
+</div>
+       </div>
+      </div>
+  </div>
+</div></div>
+  </body>
+  
+ 
+  <script>
+  $('#editTag').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recipient = button.data('name')
+  var recipient2 = button.data('content')
+    var recipient3 = button.data('args')
+      var recipient4 = button.data('mentions')
+  var modal = $(this)
+  modal.find('.modal-body input').val(recipient)
+   modal.find('.modal-body #tag-content1').val(recipient2)
+     modal.find('.modal-body .input22').val(recipient3)
+     modal.find('.modal-body .reeee').val(recipient4)
+})
+  function check(id, button, id2){
+   let idk =  document.getElementById(id).value
+    let idk2 =  document.getElementById(id2).value
+   if(!idk || idk === "" || idk === null || !idk2 || idk2 === "" || idk2 === null){
+   
+     document.getElementById(button).disabled = true
+   }else if(idk){
+      document.getElementById(button).disabled = false
+   }
+  }
+  function showstoof(){
+  if(document.getElementById("cont").style.display === "none"){
+  document.getElementById("cont").style.display = "block"
+  }else if(document.getElementById("cont").style.display === "block"){
+  document.getElementById("cont").style.display = "none"
+  }
+  }
+  function showstoof2(){
+  if(document.getElementById("cont1").style.display === "none"){
+  document.getElementById("cont1").style.display = "block"
+  }else if(document.getElementById("cont1").style.display === "block"){
+  document.getElementById("cont1").style.display = "none"
+  }
+  }
+   function showop(){
+  if(document.getElementById("cont5").style.display === "none"){
+  document.getElementById("cont5").style.display = "block"
+  }else if(document.getElementById("cont5").style.display === "block"){
+  document.getElementById("cont5").style.display = "none"
+  }
+  }
+  function showop2(){
+  if(document.getElementById("cont6").style.display === "none"){
+  document.getElementById("cont6").style.display = "block"
+  }else if(document.getElementById("cont6").style.display === "block"){
+  document.getElementById("cont6").style.display = "none"
+  }
+  }
+
+  
+  
+  function test(){
+
+  if(document.getElementById("idk").value > 10) document.getElementById("idk").value = 10
+  if(parseInt(document.getElementById("idk").value) === 10) document.getElementById("p2").style.display = "block"
+  else document.getElementById("p2").style.display = "none"
+ if(document.getElementById("idk").value <= 0) document.getElementById("idk").value = ""
+  }
+  
+   function test1(){
+
+  if(document.getElementById("idk1").value > 10) document.getElementById("idk1").value = 10
+  if(parseInt(document.getElementById("idk1").value) === 10) document.getElementById("p1").style.display = "block"
+    else document.getElementById("p1").style.display = "none"
+    if(document.getElementById("idk1").value <= 0) document.getElementById("idk1").value = ""
+  }
+   function test6(){
+
+  if(document.getElementById("idk-").value > 10) document.getElementById("idk-").value = 10
+  if(parseInt(document.getElementById("idk-").value) === 10) 
+    if(document.getElementById("idk-").value <= 0) document.getElementById("idk-").value = ""
+  }
+    function testu(){
+
+  if(document.getElementById("idk+-").value > 10) document.getElementById("idk+-").value = 10
+  if(parseInt(document.getElementById("idk+-").value) === 10) 
+    if(document.getElementById("idk+-").value <= 0) document.getElementById("idk+-").value = ""
+  }
+  </script>
+<style>
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #459e60;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+.content{
+ 
+ overflow:hidden;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+  .card{
+    position: absolute;
+    left: 35%;
+    top: 20%;
+    width: 45%;
+  }
+ 
+  .navbar{
+    left: 20%;
+  }
+  </style>
+</html>

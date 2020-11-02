@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+  <div class="float-left text-light" id="sidebar" style="background-color: rgba(0,0,0,0.9); ">
+    <a href="/dash">
+        <div class="icon rounded-circle shadow"><img onerror=this.src="https://icon-library.com/images/yellow-discord-icon/yellow-discord-icon-15.jpg"  class="icon rounded-circle shadow my-2" alt="<%= user.username %>" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=256" /></div>
+    </a>
+    <hr/>
+      <% guilds.forEach(guild => { %>
+
+    <a href="/dash/<%= guild.id %>/manage">
+        <div class="icon rounded-circle shadow my-2" data-toggle="tooltip" data-placement="right" title="<%= guild.name %>"><img class="rounded-circle" alt="<%= guild.name %>" onerror=this.src="https://icon-library.com/images/yellow-discord-icon/yellow-discord-icon-15.jpg" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=256" /></div>
+    </a>
+        <%  }) %>
+    <a href="/add">
+        <div class="icon rounded-circle">
+            <p class="abbr text-success text-center"><i class="fas fa-plus"></i></p>
+        </div>
+    </a>
+  
+</div>
+  
+            <style>
+                .icon, .icon img {
+  font-size: x-large;
+
+  height: 52px;
+  width: 52px;
+
+  transition: border-radius .3s ease-in-out;
+}
+.icon:hover, .icon img:hover {
+  border-radius: 15% !important;
+}
+.hamburger {
+  cursor: pointer;
+  font-size: xxx-large;
+
+  bottom: 0;
+  position: absolute;
+}
+
+#sidebar {
+  padding: 10px;
+
+}
+#sidebar,
+#sidebarExtension {
+ height: 100vh;
+  float: left;
+}
+.navbar{
+left: 25%;
+}
+/* extension */
+#sidebarExtension {
+  width: 275px;
+  transition: .3s;
+  opacity: 1;
+}
+#sidebarExtension .large-icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+#sidebarExtension .large-icon,
+#sidebarExtension img {
+  font-size: xx-large;
+
+  width: 96px;
+
+}
+#sidebarExtension .abbr {
+  padding-top: 25px;
+}
+#sidebarExtension h4 {
+  cursor: pointer;
+}
+
+#sidebarExtension.closed {
+  width: 0;
+  padding: 0px 0;
+}
+#sidebarExtension.closed {
+  opacity: 0;
+}
+
+/* tabs */
+.tabs a {
+  margin: 2px 10px;
+  padding: 5px;
+  padding-left: 10px !important;
+  border-radius: 5px;
+
+  text-decoration: none;
+  color: black;
+}
+.tabs a:hover {
+  background-color: white;
+}
+
+.tabs .category {
+  padding: 24px 0 4px 24px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  color: gray;
+  cursor: pointer;
+
+  transition: color .3s ease-in-out;
+}
+.tabs .category:hover {
+  color: black;
+}
+            </style>
+</body>
+</html>

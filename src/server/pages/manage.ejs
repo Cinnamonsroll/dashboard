@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Salartis - <%= guild.name %></title>
+    <%- include("./blocks/header.ejs") %>
+  </head>
+
+  <body>
+    <%- include("./blocks/sidebar.ejs", { guild }) %>
+
+  <div id="content">
+      <%- include("./blocks/navbar.ejs", { bot, user }) %>
+        <div class="wrapperr vcenter-item">
+  <div id="home">
+      <div class="container">
+    <div class="row">
+      <div class="card bg-dark text-light ccard tagc">
+   
+        <div class="card-body ccard text-center">
+
+          <div class="icon2">
+
+            <h1>
+
+
+              <i class="fas fa-tag fa-lg"></i>
+            </h1>
+          </div>
+          <h1>
+            Tags
+          </h1>
+          
+        </div>
+      
+      </div>
+
+      <div class="card bg-dark text-light ccard">
+       
+        <div class="card-body ccard text-center comc">
+
+          <div class="icon2">
+
+            <h1>
+
+
+              <i class="fas fa-toggle-on fa-lg"></i>
+            </h1>
+          </div>
+          <h1>
+            Toggles
+          </h1>
+        </div>
+     
+      </div>
+      <div class="card bg-dark text-light ccard">
+    
+        <div class="card-body ccard text-center genc ">
+
+          <div class="icon2">
+
+            <h1>
+
+
+              <i class="fas fa-gear fa-lg"></i>
+            </h1>
+          </div>
+          <h1>
+            General
+          </h1>
+        </div>
+        
+      </div>
+  
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+  </body>
+
+
+
+  <style>
+    .ccard:hover {
+      background-color: #cfafa3;
+      border-color: #cfafa3;
+      top: -5px;
+      border-radius: 5px;
+
+    }
+
+    .ccard {
+
+
+      height: 263px;
+      width: 290px;
+      transition: 0.3s;
+      margin-right: 20px;
+      display: inline-block;
+
+    }
+
+
+.wrapperr {
+    min-height: 100vh;
+}
+  .vcenter-item {
+    display: flex;
+    align-items: center;
+   }
+    #home {
+      width:100%;
+    }
+    .icon2 {
+      padding: 30px;
+    }
+
+    .navbar {
+      left: 20%;
+    }
+
+  </style>
+  <script>
+$(".tagc").click(function(){
+    window.location = "/dash/<%= guild.id %>/manage/tags"
+})
+$(".comc").click(function(){
+    window.location = "/dash/<%= guild.id %>/manage/commands"
+})
+$(".genc").click(function(){
+    window.location = "/dash/<%= guild.id %>/manage/general"
+})
+  </script>
+
+</html>

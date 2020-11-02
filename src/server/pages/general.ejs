@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Salartis - <%= guild.name %></title>
+    <%- include("./blocks/header.ejs") %>
+  </head>
+
+  <body>
+    <%- include("./blocks/sidebar.ejs", { guild }) %>
+    <%- include("./blocks/navbar.ejs", { bot, user }) %> 
+   <div id="content">
+    <div class="container" style="padding-top:77px;" >
+    
+  <div class="row" style="display: flex; justify-content: center;">
+
+
+
+    <div class="card bg-transparent col-lg-8 text-light" style="border: none;"> <!-- Gay -->
+      <header style="z-index:1;  background-color: #343b41; border: 1px solid #23282c;" class="card-header bg-dark text-light text-center">
+        <div><i class="fas fa-gear"></i> General settings</div>
+      </header>
+      <div class="card-body" style="background-color: #3a4149; border: 1px solid #23282c;">
+        <fieldset class="form-group" id="__BVID__128">
+          <form action="/dash/<%= guild.id %>/manage/general" method="POST">
+            
+         
+          <div tabindex="-1" role="group">
+            <% if(guild.perm === false){ %>
+             <div id="alert" class="alert alert-danger alert-dismissible fade show">
+               Missing perms
+<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="outline:none;">
+<span aria-hidden="true">
+<i class="fa fa-times"></i>
+</span>
+</button>
+</div>
+            <% } %>
+            <h4 class="smalltitle">Nickname</h4>
+            <p>Set the bot's display name in the server.</p>
+            <div role="group" class="input-group bg-dark">
+              <input type="text" placeholder="Bot nickname" name="nickname" value="<%= guild.nickname %>" onkeyup="check(`nickname`,`apply`)" class="col-12 form-control text-light bg-dark" style="border-color:#000;" pattern=".{1,32}" maxlength="32" id="nickname">
+              <div class="input-group-append"><button type="submit" id="apply" class="btn btn-primary">Apply</button></div>
+              
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="form-group" id="__BVID__130">
+          <div tabindex="-1" role="group">
+            <h4 class="smalltitle">Custom Prefix</h4>
+            <p>Set The bot prefix</p>
+            <div role="group" class="input-group pb-1 bg-dark">
+              <input type="text" placeholder="Enter a prefix" name="prefix"  onkeyup="check(`prefix`,`set`)" value="<%= guild.prefix %>" class="col-12 form-control text-light bg-dark" style="border-color:#000;" pattern=".{1,50}" maxlength="50" id="prefix">
+              <div class="input-group-append"><button type="submit" id="set" class="btn btn-primary">Set</button></div>
+              
+            </div>
+          </div>
+        </fieldset>
+           </form>
+      </div>
+    </div>
+    <div class="card card2 bg-transparent col-lg-8 text-light" style="border: none;"> <!-- Gay -->
+      <header style="z-index:1;  background-color: #343b41; border: 1px solid #23282c;" class="card-header bg-dark text-light text-center">
+        <div><i class="fas fa-list"></i> Recent changes</div>
+      </header>
+      <div class="card-body" style="background-color: #3a4149; border: 1px solid #23282c;">
+       <% if(!changeLogs){ %>
+        <p>
+          No logs found
+        </p>
+       <% }else{ %>
+       <% for(let i = 0; i < changeLogs.length; i++){ %>
+        <% let data = changeLogs[i] %>
+          <table class="table bg-dark text-light ">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border:none;"><strong>User</strong></td>
+        <td style="border:none;"><%= data.user || "Unknown user#0000" %></td>
+      </tr>
+      <tr>
+        <td style="border:none;"><strong>Type</strong></td>
+        <td style="border:none;"><%= data.type %></td>
+      </tr>
+      <tr>
+        <td style="border:none;"><strong>Time</strong></td>
+        <td style="border:none;"><%= data.time %> ago</td>
+      </tr>
+      <tr>
+        <td style="border:none;"><strong>Change</strong></td>
+        <td style="border:none;"><%= data.change %></td>
+      </tr>
+    
+      
+     
+    </tbody>
+  </table>
+
+        <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div> 
+</div>
+  </body>
+  
+  <script>
+  function check(id, button){
+   let idk =  document.getElementById(id).value
+   if(!idk || idk === "" || idk === null){
+   
+     document.getElementById(button).disabled = true
+   }else if(idk){
+      document.getElementById(button).disabled = false
+   }
+  }
+  
+  </script>
+  
+<style>
+
+
+  .card{
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: 39%;
+  }
+  .card2{
+    position: absolute;
+    left: 60%;
+    top: 20%;
+    width: 40%;
+  }
+  .navbar{
+    left: 20%;
+  }
+  </style>
+</html>

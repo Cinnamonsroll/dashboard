@@ -1,0 +1,59 @@
+
+<nav class="navbar navbar-expand navbar-dark " style="z-index:100;">
+    <a class="navbar-brand" href="/"><img src="https://cdn.discordapp.com/attachments/700825294466056324/766744626051940352/file.png" style="height: 50px; width: 50px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link hover-commands" class="tooltip--triangle" data-tooltip="Commands" href="/commands"><i  class="fas fa-code"></i> <span class="sr-only">(current)</span></a>
+          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/add"><i class="fas fa-plus"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/github"><i class="fab fa-github"></i></a>
+        </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          
+            <% if (user) { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle pl-3 pr-3 mr-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white !important;"><img
+            class="rounded-circle idk"
+            src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096"
+          /> <%= user.username %></a>
+                        <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/dash"><i class="fas fa-gear"></i> Dashboard</a>
+                           <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link pl-3 pr-3 mr-3"><i class="fas fa-user"></i> Login</a>
+                </li>
+            <% } %>
+        </ul>
+       
+    </div>
+</nav>
+<style>
+  .idk{
+    weight: 32px;
+    height: 32px;
+  }
+  .navbar {
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+  }
+ 
+</style>
+
+
+

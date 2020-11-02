@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Salartis - <%= guild.name %></title>
+    <%- include("./blocks/header.ejs") %>
+  </head>
+
+  <body>
+    <%- include("./blocks/sidebar.ejs", { guild }) %>
+    <%- include("./blocks/navbar.ejs", { bot, user }) %>
+    <div id="content">
+   <div class="wrapperr vcenter-item">
+  <div id="home">
+ <h1>Command toggling</h1>
+ <hr>
+       <form id="myForm"  action="/dash/<%= guild.id %>/manage/commands" method="POST">
+        <% commands.forEach(command => { %>
+    
+    <div class="card bg-dark text-light text-left">
+
+  
+   
+<div class="card-body">
+  <span><input type="hidden" formcontrolname="name" value="<%= command.name %>"><%= command.name %></span>
+  <label class="switch">
+<% if(command.checked === true){ %>
+ 
+  <input onclick="displayThingy()" name="<%= command.name %>" type="checkbox" value="f">
+ 
+  <% }else{ %>
+  <input onclick="displayThingy()" name="<%= command.name %>" type="checkbox" value="t" checked>
+ 
+  <% } %>
+  <span class="slider round"></span>
+</label>
+  </div>
+
+
+
+   
+  
+       </div>
+     <% }) %>
+       </form>
+    </div></div>
+    </div>
+    
+<div id="dcard" class="discord-card rounded text-light">
+  <div class="card-body">
+    <div class="row">
+    <div class="text text-center col-lg-8 col-sm-12 p-lg-1">Careful - You have unsaved changes!</div>
+  <div class="col-lg-4 col-sm-12 d-flex justify-content-center">
+        <button onclick="reset()" class="btn text-light">
+      Reset
+    </button>
+   
+    <button onclick="submitForm()" class="btn btn-success">
+      Save
+    </button>
+
+    </div>
+    </div>
+  </div>
+</div>
+  </body>
+  <style>
+    .wrapperr {
+    min-height: 100vh;
+}
+  .vcenter-item {
+    display: flex;
+    align-items: center;
+   }
+    #home {
+      width:100%;
+    }
+  
+  
+   
+   
+  
+
+</style>
+<style>
+/* The switch - the box around the slider */
+.switch {
+  float: right;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+ 
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.discord-card{
+display: none;
+  position: absolute;
+  bottom: 15%;
+  left: 30%;
+background-color: rgba(0,0,0,.8)!important;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+div{
+  display: block;
+}
+h1{
+position: absolute;
+left: 30%;
+bottom: 56%;
+}
+.card {
+
+    position: relative;
+    left: 30%;
+    top: 30%;
+    display: flex;
+  display: inline-block;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+width: 15%;
+
+}
+
+  .navbar{
+    left: 20%;
+  }
+  .thingy-around-thingy{
+
+  }
+  </style>
+  <script>
+    
+  function submitForm(){
+  document.getElementById("myForm").submit();
+}
+  function reset(){
+ 
+  var checkboxes = new Array(); 
+  checkboxes = document.getElementsByTagName('input');
+ 
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      checkboxes[i].checked = true;
+    }
+  }
+  document.getElementById("dcard").style.display = "none";
+
+  }
+  function displayThingy(){
+  document.getElementById("dcard").style.display = "block";
+  }
+  setInterval(() => {
+    var checkboxes = new Array(); 
+  checkboxes = document.getElementsByTagName('input');
+ 
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      if(checkboxes[i].checked === true){
+      checkboxes[i].value="t"
+      }else{
+      checkboxes[i].value="f"
+      }
+    }
+  }
+},1000)
+  </script>
+  
+</html>

@@ -1,0 +1,10 @@
+token: "" # bot token
+port: 3000 # port 
+prefix: "" # default prefix
+bot:
+    id: "" # bot id
+    secret: "" # bot secret 
+    redirect: "" # bot redirect ending in /auth/callback
+    scopes:
+        - identify
+        - guilds
